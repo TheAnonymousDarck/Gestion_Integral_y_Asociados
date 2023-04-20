@@ -19,10 +19,22 @@ Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('welcome');
+
+Route::get('/about', fn () => Inertia::render('Guest/About', [
+    'canLogin' => Route::has('login'),
+    'canRegister' => Route::has('register'),
+]))->name('about');
+Route::get('/contact', fn () => Inertia::render('Guest/Contact', [
+    'canLogin' => Route::has('login'),
+    'canRegister' => Route::has('register'),
+]))->name('contact');
+Route::get('/prices', fn () => Inertia::render('Guest/Prices', [
+    'canLogin' => Route::has('login'),
+    'canRegister' => Route::has('register'),
+]))->name('prices');
+
 
 Route::middleware([
     'auth:sanctum',
@@ -33,3 +45,5 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 });
+
+//require __DIR__.'/guest.php';
